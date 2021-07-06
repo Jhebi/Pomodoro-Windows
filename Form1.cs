@@ -19,7 +19,8 @@ namespace Pomodoro_Windows
         }
         System.Timers.Timer time;
         int min, sec, wmin, rmin, lrmin;
-        
+        bool work = true;
+
         private void Pause_Click(object sender, EventArgs e)
         {
             // if button starts or pauses depending on the text on the button
@@ -45,10 +46,6 @@ namespace Pomodoro_Windows
             panel1.Show();
         }
 
-        private void Quitbtn2_Click(object sender, EventArgs e)
-        {
-
-        }
 
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -62,17 +59,39 @@ namespace Pomodoro_Windows
 
         private void OnTimeEvent(object sender, ElapsedEventArgs e)
         {
-            sec += 1; //counting seconds
-            Invoke(new Action(() =>
-                {
-                    if (sec == 60)
+            if (work == true)
+            {
+                sec -= 1; //decreasing seconds
+                Invoke(new Action(() =>
                     {
-                        sec = 0;
-                        min += 1;
+                        if (sec == -1)
+                        {
+                            sec = 59;
+                            wmin -= 1;
+                        }
+                        // display time
+                        Timer.Text = string.Format("{0}:{1}", wmin.ToString().PadLeft(2, '0'), sec.ToString().PadLeft(2, '0'));
+                        if (wmin == 0)
+                            work = false;
+
+                    }));
+            }
+            if (work == false)
+            {
+                // same as before
+                sec -= 1; 
+                Invoke(new Action(() =>
+                {
+                    if (sec == -1)
+                    {
+                        sec = 59;
+                        rmin -= 1;
                     }
-                    Timer.Text = string.Format("{0}:{1}", min.ToString().PadLeft(2, '0'), sec.ToString().PadLeft(2, '0'));
+                    Timer.Text = string.Format("{0}:{1}", rmin.ToString().PadLeft(2, '0'), sec.ToString().PadLeft(2, '0'));
+                    if (rmin == 0)
+                        work = true;
                 }));
-            
+            }    
         }
 
         private void Startbtn_Click(object sender, EventArgs e)
@@ -80,15 +99,20 @@ namespace Pomodoro_Windows
             //shows panel 2 and hides panel 1
             panel1.Hide();
             panel2.Show();
+            wmin = Convert.ToInt32(Math.Round(numericUpDown1.Value , 0));
+            rmin = Convert.ToInt32(Math.Round(numericUpDown2.Value , 0));
+            Timer.Text = string.Format("{0}:{1}", wmin.ToString().PadLeft(2, '0'), sec.ToString().PadLeft(2, '0'));
 
         }
 
         private void Quitbtn_Click(object sender, EventArgs e)
         {
-            //stops the timer
-            time.Stop();
+            Application.Exit();
+        }
+        private void Quitbtn2_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
         }
 
-       
     }
 }
