@@ -18,8 +18,8 @@ namespace Pomodoro_Windows
             InitializeComponent();
         }
         System.Timers.Timer time;
-        int min, sec, wmin, rmin, lrmin;
-        bool work = true;
+        int min, sec, wmin, rmin, lrmin, restcount = 0;
+        bool work = true, change = true;
 
         private void Pause_Click(object sender, EventArgs e)
         {
@@ -59,39 +59,47 @@ namespace Pomodoro_Windows
 
         private void OnTimeEvent(object sender, ElapsedEventArgs e)
         {
-            if (work == true)
+            if (work == true && change == true)
             {
-                sec -= 1; //decreasing seconds
-                Invoke(new Action(() =>
-                    {
-                        if (sec == -1)
-                        {
-                            sec = 59;
-                            wmin -= 1;
-                        }
-                        // display time
-                        Timer.Text = string.Format("{0}:{1}", wmin.ToString().PadLeft(2, '0'), sec.ToString().PadLeft(2, '0'));
-                        if (wmin == 0)
-                            work = false;
-
-                    }));
+                min = wmin;
+                change = false;
             }
-            if (work == false)
+            else if (work == false && change == true && restcount < 4 )
             {
-                // same as before
-                sec -= 1; 
-                Invoke(new Action(() =>
+                min = rmin;
+                change = false;
+            }
+            else if (work == false && change == true && restcount >= 4)
+            {
+                min = lrmin;
+                change = false;
+            }
+            sec -= 1; //decreasing seconds
+            Invoke(new Action(() =>
+            {
+                //if sec reaches zero
+                if (sec < 0)
                 {
-                    if (sec == -1)
+                    sec = 59;
+                    min -= 1;
+                }
+                
+                // display time
+                Timer.Text = string.Format("{0}:{1}", min.ToString().PadLeft(2, '0'), sec.ToString().PadLeft(2, '0'));
+                if (min == 0 && sec == 0)
+                {
+                    if (work == false && restcount <= 3)
                     {
-                        sec = 59;
-                        rmin -= 1;
+                        restcount++;
                     }
-                    Timer.Text = string.Format("{0}:{1}", rmin.ToString().PadLeft(2, '0'), sec.ToString().PadLeft(2, '0'));
-                    if (rmin == 0)
-                        work = true;
-                }));
-            }    
+                    else if (work == false && restcount >= 4)
+                        restcount = 0;
+                    work = !work;
+                    change = true;
+                }
+                
+
+            }));
         }
 
         private void Startbtn_Click(object sender, EventArgs e)
@@ -102,7 +110,10 @@ namespace Pomodoro_Windows
             wmin = Convert.ToInt32(Math.Round(numericUpDown1.Value , 0));
             rmin = Convert.ToInt32(Math.Round(numericUpDown2.Value , 0));
             Timer.Text = string.Format("{0}:{1}", wmin.ToString().PadLeft(2, '0'), sec.ToString().PadLeft(2, '0'));
-
+            if (wmin > 40)
+                lrmin = 30;
+            else if (wmin < 40)
+                lrmin = 20;
         }
 
         private void Quitbtn_Click(object sender, EventArgs e)

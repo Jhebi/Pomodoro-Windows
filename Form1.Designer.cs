@@ -68,7 +68,7 @@ namespace Pomodoro_Windows
             // numericUpDown1
             // 
             this.numericUpDown1.Increment = new decimal(new int[] {
-            10,
+            5,
             0,
             0,
             0});
@@ -94,14 +94,9 @@ namespace Pomodoro_Windows
             // 
             // numericUpDown2
             // 
-            this.numericUpDown2.Increment = new decimal(new int[] {
-            5,
-            0,
-            0,
-            0});
             this.numericUpDown2.Location = new System.Drawing.Point(152, 67);
             this.numericUpDown2.Maximum = new decimal(new int[] {
-            10,
+            15,
             0,
             0,
             0});
