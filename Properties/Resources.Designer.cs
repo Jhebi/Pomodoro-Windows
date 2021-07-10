@@ -63,10 +63,40 @@ namespace Pomodoro_Windows.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Gray_Tomato {
+            get {
+                object obj = ResourceManager.GetObject("Gray_Tomato", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Green_Tomato {
+            get {
+                object obj = ResourceManager.GetObject("Green_Tomato", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Red_Tomato {
             get {
                 object obj = ResourceManager.GetObject("Red_Tomato", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon Red_Tomato_Icon {
+            get {
+                object obj = ResourceManager.GetObject("Red_Tomato_Icon", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
             }
         }
     }

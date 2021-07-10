@@ -16,35 +16,16 @@ namespace Pomodoro_Windows
         public Form1()
         {
             InitializeComponent();
+            this.BackColor = Color.Green;
+            this.TransparencyKey = Color.Green;
+            this.FormBorderStyle = FormBorderStyle.None;
+            this.Icon = Properties.Resources.Red_Tomato_Icon;
         }
         System.Timers.Timer time;
         int min, sec, wmin, rmin, lrmin, restcount = 0;
         bool work = true, change = true;
-
-        private void Pause_Click(object sender, EventArgs e)
-        {
-            // if button starts or pauses depending on the text on the button
-            Button btn = sender as Button;
-            string p = btn.Text;
-            if (p == "Start")
-            {
-                time.Start();
-                Pause.Text = "Pause";
-            }
-
-            if (p == "Pause")
-            {
-                time.Stop();
-                Pause.Text = "Start";
-            }
-        }
-
-        private void Backbtn_Click(object sender, EventArgs e)
-        {
-            //shows panel 1 and hides panel 2
-            panel2.Hide();
-            panel1.Show();
-        }
+        private bool dragging = false;
+        private Point start_point = new Point(0, 0);
 
 
         private void Form1_Load(object sender, EventArgs e)
@@ -55,6 +36,53 @@ namespace Pomodoro_Windows
             time.Elapsed += OnTimeEvent;
             //hides panel 2
             panel2.Hide();
+            // set the transparency
+            label1.BackColor = System.Drawing.Color.Transparent;
+            label2.BackColor = System.Drawing.Color.Transparent;
+            Timer.BackColor = System.Drawing.Color.Transparent;
+        }
+
+        private void panel1_MouseDown(object sender, MouseEventArgs e)
+        {
+            //clicking the panel will let program know you are dragging it
+            dragging = true;
+            start_point = new Point(e.X, e.Y);
+        }
+
+        private void panel1_MouseUp(object sender, MouseEventArgs e)
+        {
+            //releasing mouse button means you are not dragging anymore
+            dragging = false;
+        }
+
+        private void panel1_MouseMove(object sender, MouseEventArgs e)
+        {
+            //let you drag the program anywhere in the screen
+            if (dragging)
+            {
+                Point p = PointToScreen(e.Location);
+                Location = new Point(p.X - this.start_point.X, p.Y - this.start_point.Y);
+            }
+        }
+
+        private void panel2_MouseDown(object sender, MouseEventArgs e)
+        {
+            dragging = true;
+            start_point = new Point(e.X, e.Y);
+        }
+
+        private void panel2_MouseUp(object sender, MouseEventArgs e)
+        {
+            dragging = false;
+        }
+
+        private void panel2_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (dragging)
+            {
+                Point p = PointToScreen(e.Location);
+                Location = new Point(p.X - this.start_point.X, p.Y - this.start_point.Y);
+            }
         }
 
         private void OnTimeEvent(object sender, ElapsedEventArgs e)
@@ -63,16 +91,26 @@ namespace Pomodoro_Windows
             {
                 min = wmin;
                 change = false;
+                panel2.BackgroundImage = Properties.Resources.Red_Tomato;
+                Backbtn.BackColor = Color.Orange;
+                Pause.BackColor = Color.Orange;
+                Quitbtn2.BackColor = Color.Orange;
+
             }
             else if (work == false && change == true && restcount < 4 )
             {
                 min = rmin;
                 change = false;
+                panel2.BackgroundImage = Properties.Resources.Green_Tomato;
+                Backbtn.BackColor = Color.YellowGreen;
+                Pause.BackColor = Color.YellowGreen;
+                Quitbtn2.BackColor = Color.YellowGreen;
             }
             else if (work == false && change == true && restcount >= 4)
             {
                 min = lrmin;
                 change = false;
+                panel2.BackgroundImage = Properties.Resources.Green_Tomato;
             }
             sec -= 1; //decreasing seconds
             Invoke(new Action(() =>
@@ -104,22 +142,56 @@ namespace Pomodoro_Windows
 
         private void Startbtn_Click(object sender, EventArgs e)
         {
+            //get the location of panel 1 and set the location to panel 2
             //shows panel 2 and hides panel 1
+            panel2.Location = panel1.Location;
             panel1.Hide();
             panel2.Show();
             wmin = Convert.ToInt32(Math.Round(numericUpDown1.Value , 0));
             rmin = Convert.ToInt32(Math.Round(numericUpDown2.Value , 0));
-            Timer.Text = string.Format("{0}:{1}", wmin.ToString().PadLeft(2, '0'), sec.ToString().PadLeft(2, '0'));
+            sec = 0;
+            min = wmin;
+            Timer.Text = string.Format("{0}:{1}", min.ToString().PadLeft(2, '0'), sec.ToString().PadLeft(2, '0'));
+            // set long rest time
             if (wmin > 40)
                 lrmin = 30;
             else if (wmin < 40)
                 lrmin = 20;
         }
 
+        private void Backbtn_Click(object sender, EventArgs e)
+        {
+            //shows panel 1 and hides panel 2
+            panel1.Location = panel2.Location;
+            panel2.Hide();
+            panel1.Show();
+            time.Stop();
+            Pause.Text = "Start";
+        }
+
+        private void Pause_Click(object sender, EventArgs e)
+        {
+            // if button starts or pauses depending on the text on the button
+            Button btn = sender as Button;
+            string p = btn.Text;
+            if (p == "Start")
+            {
+                time.Start();
+                Pause.Text = "Pause";
+            }
+
+            if (p == "Pause")
+            {
+                time.Stop();
+                Pause.Text = "Start";
+            }
+        }
+
         private void Quitbtn_Click(object sender, EventArgs e)
         {
             Application.Exit();
         }
+
         private void Quitbtn2_Click(object sender, EventArgs e)
         {
             Application.Exit();
@@ -127,3 +199,10 @@ namespace Pomodoro_Windows
 
     }
 }
+//////////////////////////////////////////////////////////////
+///////////////Made by: John Benedict D. Malabanan////////////
+///////////////email me @: jb11malabanan@gmail.com////////////
+//////////////////////////////////////////////////////////////
+////////Just made this for programming practice///////////////
+//////////Feel free to message me if you want to use it///////
+//////////////////////////////////////////////////////////////

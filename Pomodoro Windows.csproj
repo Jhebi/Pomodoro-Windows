@@ -83,5 +83,14 @@
   <ItemGroup>
     <None Include="Resources\Red Tomato.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Green Tomato.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Gray Tomato.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Red Tomato Icon.ico" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
