@@ -39,6 +39,8 @@ namespace Pomodoro_Windows
             time.Elapsed += OnTimeEvent;
             //hides panel 2
             panel2.Hide();
+            //place panel2 behind panel1
+            panel2.Location = panel1.Location;
             // set the transparency
             label1.BackColor = System.Drawing.Color.Transparent;
             label2.BackColor = System.Drawing.Color.Transparent;
