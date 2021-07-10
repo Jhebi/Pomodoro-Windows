@@ -20,6 +20,10 @@ namespace Pomodoro_Windows
             this.TransparencyKey = Color.Green;
             this.FormBorderStyle = FormBorderStyle.None;
             this.Icon = Properties.Resources.Red_Tomato_Icon;
+            this.TopMost = true;
+            int x = Screen.PrimaryScreen.WorkingArea.Right - this.Width;
+            int y = Screen.PrimaryScreen.WorkingArea.Bottom - this.Height;
+            this.Location = new Point (x, y);
         }
         System.Timers.Timer time;
         int min, sec, wmin, rmin, lrmin, restcount = 0;
