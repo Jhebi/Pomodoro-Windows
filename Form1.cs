@@ -18,7 +18,6 @@ namespace Pomodoro_Windows
             InitializeComponent();
             this.BackColor = Color.Green;
             this.TransparencyKey = Color.Green;
-            this.FormBorderStyle = FormBorderStyle.None;
             this.Icon = Properties.Resources.Red_Tomato_Icon;
             this.TopMost = true;
             int x = Screen.PrimaryScreen.WorkingArea.Right - this.Width;
@@ -130,11 +129,11 @@ namespace Pomodoro_Windows
                 Timer.Text = string.Format("{0}:{1}", min.ToString().PadLeft(2, '0'), sec.ToString().PadLeft(2, '0'));
                 if (min == 0 && sec == 0)
                 {
-                    if (work == false && restcount <= 3)
+                    if (work == false && restcount <= 2)
                     {
                         restcount++;
                     }
-                    else if (work == false && restcount >= 4)
+                    else if (work == false && restcount >= 3)
                         restcount = 0;
                     work = !work;
                     change = true;
