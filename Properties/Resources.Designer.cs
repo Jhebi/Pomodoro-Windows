@@ -99,5 +99,14 @@ namespace Pomodoro_Windows.Properties {
                 return ((System.Drawing.Icon)(obj));
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
+        /// </summary>
+        internal static System.IO.UnmanagedMemoryStream Whistle {
+            get {
+                return ResourceManager.GetStream("Whistle", resourceCulture);
+            }
+        }
     }
 }

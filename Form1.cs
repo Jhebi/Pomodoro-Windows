@@ -143,7 +143,7 @@ namespace Pomodoro_Windows
                 //if sec reaches zero
                 if (sec < 0)
                 {
-                    sec = 59;
+                    sec = 1;
                     min -= 1;
                 }
                 
@@ -159,6 +159,8 @@ namespace Pomodoro_Windows
                         restcount = 0;
                     work = !work;
                     change = true;
+                    System.Media.SoundPlayer player = new System.Media.SoundPlayer(Properties.Resources.Whistle);
+                    player.Play();
                 }
                 
 

@@ -63,6 +63,10 @@
   <PropertyGroup>
     <ApplicationIcon>Resources\Red Tomato Icon.ico</ApplicationIcon>
   </PropertyGroup>
+  <PropertyGroup />
+  <PropertyGroup>
+    <NoWin32Manifest>true</NoWin32Manifest>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -122,9 +126,6 @@
     <None Include="Resources\Gray Tomato.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Red Tomato Icon.ico" />
-  </ItemGroup>
-  <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">
       <Visible>False</Visible>
       <ProductName>Microsoft .NET Framework 4.7.2 %28x86 and x64%29</ProductName>
@@ -135,6 +136,19 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\bird_whistle.mp3" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Whistle.mp3" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Whistle.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Red Tomato Icon.ico" />
+    <None Include="Resources\Red Tomato Icon.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
