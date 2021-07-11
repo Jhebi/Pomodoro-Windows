@@ -143,7 +143,7 @@ namespace Pomodoro_Windows
                 //if sec reaches zero
                 if (sec < 0)
                 {
-                    sec = 1;
+                    sec = 59;
                     min -= 1;
                 }
                 

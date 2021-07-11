@@ -138,12 +138,6 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\bird_whistle.mp3" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Whistle.mp3" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\Whistle.wav" />
   </ItemGroup>
   <ItemGroup>
