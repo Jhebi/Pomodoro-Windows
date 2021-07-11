@@ -26,10 +26,24 @@ namespace Pomodoro_Windows
         }
         System.Timers.Timer time;
         int min, sec, wmin, rmin, lrmin, restcount = 0;
-        bool work = true, change = true;
-        private bool dragging = false;
-        private Point start_point = new Point(0, 0);
+        bool work = true, change = true, reset = true;
+        bool dragging = false;
+        Point start_point = new Point(0, 0);
 
+        public void MakeTomatoRed()
+        {
+            panel2.BackgroundImage = Properties.Resources.Red_Tomato;
+            Backbtn.BackColor = Color.Orange;
+            Pause.BackColor = Color.Orange;
+            Quitbtn2.BackColor = Color.Orange;
+        }
+        public void MakeTomatoGreen()
+        {
+            panel2.BackgroundImage = Properties.Resources.Green_Tomato;
+            Backbtn.BackColor = Color.YellowGreen;
+            Pause.BackColor = Color.YellowGreen;
+            Quitbtn2.BackColor = Color.YellowGreen;
+        }
 
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -90,32 +104,38 @@ namespace Pomodoro_Windows
             }
         }
 
+        private void numericUpDown1_ValueChanged(object sender, EventArgs e)
+        {
+            reset = true;
+            Startbtn.Text = "Start";
+        }
+
+        private void numericUpDown2_ValueChanged(object sender, EventArgs e)
+        {
+            reset = true;
+            Startbtn.Text = "Start";
+        }
+
         private void OnTimeEvent(object sender, ElapsedEventArgs e)
         {
             if (work == true && change == true)
             {
                 min = wmin;
                 change = false;
-                panel2.BackgroundImage = Properties.Resources.Red_Tomato;
-                Backbtn.BackColor = Color.Orange;
-                Pause.BackColor = Color.Orange;
-                Quitbtn2.BackColor = Color.Orange;
+                MakeTomatoRed();
 
             }
             else if (work == false && change == true && restcount < 4 )
             {
                 min = rmin;
                 change = false;
-                panel2.BackgroundImage = Properties.Resources.Green_Tomato;
-                Backbtn.BackColor = Color.YellowGreen;
-                Pause.BackColor = Color.YellowGreen;
-                Quitbtn2.BackColor = Color.YellowGreen;
+                MakeTomatoGreen();
             }
             else if (work == false && change == true && restcount >= 4)
             {
                 min = lrmin;
                 change = false;
-                panel2.BackgroundImage = Properties.Resources.Green_Tomato;
+                MakeTomatoGreen();
             }
             sec -= 1; //decreasing seconds
             Invoke(new Action(() =>
@@ -147,21 +167,29 @@ namespace Pomodoro_Windows
 
         private void Startbtn_Click(object sender, EventArgs e)
         {
+            
+            if (reset)
+            {
+                wmin = Convert.ToInt32(Math.Round(numericUpDown1.Value, 0));
+                rmin = Convert.ToInt32(Math.Round(numericUpDown2.Value, 0));
+                sec = 0;
+                min = wmin;
+                Timer.Text = string.Format("{0}:{1}", min.ToString().PadLeft(2, '0'), sec.ToString().PadLeft(2, '0'));
+                work = true;
+                change = true;
+                MakeTomatoRed();
+                // set long rest time
+                if (wmin > 40)
+                    lrmin = 30;
+                else if (wmin < 40)
+                    lrmin = 20;
+            }
             //get the location of panel 1 and set the location to panel 2
             //shows panel 2 and hides panel 1
             panel2.Location = panel1.Location;
             panel1.Hide();
             panel2.Show();
-            wmin = Convert.ToInt32(Math.Round(numericUpDown1.Value , 0));
-            rmin = Convert.ToInt32(Math.Round(numericUpDown2.Value , 0));
-            sec = 0;
-            min = wmin;
-            Timer.Text = string.Format("{0}:{1}", min.ToString().PadLeft(2, '0'), sec.ToString().PadLeft(2, '0'));
-            // set long rest time
-            if (wmin > 40)
-                lrmin = 30;
-            else if (wmin < 40)
-                lrmin = 20;
+
         }
 
         private void Backbtn_Click(object sender, EventArgs e)
@@ -172,6 +200,8 @@ namespace Pomodoro_Windows
             panel1.Show();
             time.Stop();
             Pause.Text = "Start";
+            Startbtn.Text = "Resume";
+            reset = false;
         }
 
         private void Pause_Click(object sender, EventArgs e)

@@ -56,7 +56,7 @@ namespace Pomodoro_Windows
             this.panel2.Controls.Add(this.Pause);
             this.panel2.Controls.Add(this.Backbtn);
             this.panel2.Controls.Add(this.Timer);
-            this.panel2.Location = new System.Drawing.Point(12, 12);
+            this.panel2.Location = new System.Drawing.Point(294, 12);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(273, 231);
             this.panel2.TabIndex = 7;
@@ -126,7 +126,7 @@ namespace Pomodoro_Windows
             this.panel1.Controls.Add(this.Startbtn);
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.numericUpDown2);
-            this.panel1.Location = new System.Drawing.Point(291, 12);
+            this.panel1.Location = new System.Drawing.Point(15, 12);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(273, 231);
             this.panel1.TabIndex = 6;
@@ -160,6 +160,7 @@ namespace Pomodoro_Windows
             0,
             0,
             0});
+            this.numericUpDown1.ValueChanged += new System.EventHandler(this.numericUpDown1_ValueChanged);
             // 
             // Quitbtn
             // 
@@ -211,12 +212,12 @@ namespace Pomodoro_Windows
             // 
             this.numericUpDown2.Location = new System.Drawing.Point(163, 128);
             this.numericUpDown2.Maximum = new decimal(new int[] {
-            15,
+            20,
             0,
             0,
             0});
             this.numericUpDown2.Minimum = new decimal(new int[] {
-            5,
+            2,
             0,
             0,
             0});
@@ -228,13 +229,14 @@ namespace Pomodoro_Windows
             0,
             0,
             0});
+            this.numericUpDown2.ValueChanged += new System.EventHandler(this.numericUpDown2_ValueChanged);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(577, 255);
+            this.ClientSize = new System.Drawing.Size(303, 254);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
