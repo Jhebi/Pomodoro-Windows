@@ -125,13 +125,13 @@ namespace Pomodoro_Windows
                 MakeTomatoRed();
 
             }
-            else if (work == false && change == true && restcount < 4 )
+            else if (work == false && change == true && restcount < 3)
             {
                 min = rmin;
                 change = false;
                 MakeTomatoGreen();
             }
-            else if (work == false && change == true && restcount >= 4)
+            else if (work == false && change == true && restcount >= 3)
             {
                 min = lrmin;
                 change = false;
@@ -181,7 +181,7 @@ namespace Pomodoro_Windows
                 change = true;
                 MakeTomatoRed();
                 // set long rest time
-                if (wmin > 40)
+                if (wmin >= 40)
                     lrmin = 30;
                 else if (wmin < 40)
                     lrmin = 20;
